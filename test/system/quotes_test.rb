@@ -2,7 +2,7 @@ require "application_system_test_case"
 
 class QuotesTest < ApplicationSystemTestCase
   setup do
-    @quotes = quotes(:first) # Reference to the first fixture quote
+    @quote = quotes(:first) # Reference to the first fixture quote
   end
 
   test "Creating a new quote" do
