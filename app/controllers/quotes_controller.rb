@@ -11,10 +11,15 @@ class QuotesController < ApplicationController
 
   def create
     @quote = Quote.new(quote_params)
-    if @quote.save
-      redirect_to quotes_path, notice: "Quote was successfully created."
-    else
-      render :new, status: :unprocessable_entity
+    respond_to do |format|
+      if @quote.save
+        format.html do
+          redirect_to quotes_path, notice: "Quote was successfully created."
+        end
+        format.turbo_stream
+      else
+        format.html { render :new, status: :unprocessable_entity }
+      end
     end
   end
 

@@ -1,0 +1,17 @@
+<%# one line variant %>
+<% if false %>
+  <%= turbo_stream.prepend "quotes", partial: "quotes/quote", locals: { quote: @quote } %>
+<% end %>
+
+<%# multiline variant %>
+<% if false %>
+  <%= turbo_stream.prepend "quotes" do %>
+    <%# render long option %>
+    <%= render partial: "quotes/quote", locals: { quote: @quote } %>
+    <%# render short option %>
+    <% render @quote %>
+  <% end %>
+<% end %>
+<%# The most short option %>
+<%= turbo_stream.prepend "quotes", @quote %>
+<%= turbo_stream.update "new_quote", "" %>
