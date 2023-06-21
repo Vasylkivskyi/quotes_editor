@@ -1,8 +1,10 @@
-<main class="container">
-  <%= link_to sanitize("&larr; Back to quotes"), quotes_path %>
-  <div class="header">
-    <h1>
-      <%= @quote.name %>
-    </h1>
-  </div>
-</main>
+<%= turbo_frame_tag @quote do %>
+  <main class="container">
+    <%= link_to sanitize("&larr; Back to quotes"), quotes_path, data: {turbo_frame: "_top"} %>
+    <div class="header">
+      <h1>
+        <%= @quote.name %>
+      </h1>
+    </div>
+  </main>
+<% end %>
