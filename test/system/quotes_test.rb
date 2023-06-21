@@ -1,7 +1,10 @@
 require "application_system_test_case"
 
 class QuotesTest < ApplicationSystemTestCase
-  setup { @quote = quotes(:first) }
+  setup do
+    # We need to order quote as well in the system tests
+    @quote = Quote.ordered.first
+  end
 
   test "Showing a quote" do
     visit quotes_path
