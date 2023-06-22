@@ -14,15 +14,20 @@ class Quote < ApplicationRecord
   #                     }
 
   # shorter version
-  after_create_commit -> { broadcast_prepend_to "quotes" }
+  # after_create_commit -> { broadcast_prepend_to "quotes" } # regular
+  # after_create_commit -> { broadcast_prepend_later_to "quotes" } # async
   # There are two other conventions we can use to shorten our code. Under the hood, Turbo has a default value for both the partial and the locals option.
 
   # The partial default value is equal to calling to_partial_path on an instance of the model, which by default in Rails for our Quote model is equal to "quotes/quote".
   # The locals default value is equal to { model_name.element.to_sym => self } which, in in the context of our Quote model, is equal to { quote: self }.
 
   # broadcast ufter quote was updated (short version)
-  after_update_commit -> { broadcast_replace_to "quotes" }
+  # after_update_commit -> { broadcast_replace_to "quotes" } # regular
+  # after_update_commit -> { broadcast_replace_later_to "quotes" } # async
 
   # broadcast ufter quote was deleted (short version)
-  after_destroy_commit -> { broadcast_remove_to "quotes" }
+  # after_destroy_commit -> { broadcast_remove_to "quotes" } # destroy can be regular only
+
+  # Those three callbacks are equivalent to the following single line
+  broadcasts_to ->(quote) { "quotes" }, inserts_by: :prepend
 end
