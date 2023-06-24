@@ -13,5 +13,6 @@
   <% end %>
 <% end %>
 <%# The most short option %>
+<%= turbo_stream.prepend "flash", partial: "layouts/flash" %>
 <%= turbo_stream.prepend "quotes", @quote %>
 <%= turbo_stream.update "new_quote", "" %>
