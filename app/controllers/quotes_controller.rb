@@ -9,6 +9,10 @@ class QuotesController < ApplicationController
     @quotes = current_company.quotes.ordered # works with scope property in quote model
   end
 
+  def show
+    @line_item_dates = @quote.line_item_dates.ordered
+  end
+
   def new
     @quote = Quote.new
   end
