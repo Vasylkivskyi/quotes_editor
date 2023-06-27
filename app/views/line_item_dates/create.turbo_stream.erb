@@ -1,0 +1,6 @@
+<%= turbo_stream.prepend "line_item_dates" do %>
+  <%= render partial: "line_item_dates/line_item_date",
+             locals: { quote: @quote, line_item_date: @line_item_date } %>
+<% end %>
+<%= turbo_stream.update @line_item_date, "" %>
+<%= render_turbo_stream_flash_messages %>

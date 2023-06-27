@@ -8,10 +8,18 @@ class LineItemDatesController < ApplicationController
 
   def create
     @line_item_date = @quote.line_item_dates.build(line_item_date_params)
-    if @line_item_date.save
-      redirect_to quote_path(@quote), notice: "Date was successfully created."
-    else
-      render :new, status: :unprocessable_entity
+    respond_to do |format|
+      if @line_item_date.save
+        format.html do
+          redirect_to quote_path(@quote),
+                      notice: "Date was successfully created."
+        end
+        format.turbo_stream do
+          flash.now[:notice] = "Date was successfully created."
+        end
+      else
+        render :new, status: :unprocessable_entity
+      end
     end
   end
 
