@@ -4,6 +4,7 @@ module ApplicationHelper
   end
 
   def form_error_notification(object)
+    puts "😘", object.inspect
     if object.errors.any?
       tag.div class: "error-message" do
         object.errors.full_messages.to_sentence.capitalize

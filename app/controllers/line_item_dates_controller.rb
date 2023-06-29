@@ -2,14 +2,35 @@ class LineItemDatesController < ApplicationController
   before_action :set_quote
   before_action :set_line_item_date, only: %i[edit update destroy]
 
+  # def new
+  #   @line_item_date = @quote.line_item_dates.build
+  # end
+
+  # def create
+  #   @line_item_date = @quote.line_item_dates.build(line_item_date_params)
+  #   respond_to do |format|
+  #     if @line_item_date.save
+  #       format.html do
+  #         redirect_to quote_path(@quote),
+  #                     notice: "Date was successfully created."
+  #       end
+  #       format.turbo_stream do
+  #         flash.now[:notice] = "Date was successfully created."
+  #       end
+  #     else
+  #       render :new, status: :unprocessable_entity
+  #     end
+  #   end
+  # end
   def new
     @line_item_date = @quote.line_item_dates.build
   end
 
   def create
     @line_item_date = @quote.line_item_dates.build(line_item_date_params)
-    respond_to do |format|
-      if @line_item_date.save
+
+    if @line_item_date.save
+      respond_to do |format|
         format.html do
           redirect_to quote_path(@quote),
                       notice: "Date was successfully created."
@@ -17,9 +38,9 @@ class LineItemDatesController < ApplicationController
         format.turbo_stream do
           flash.now[:notice] = "Date was successfully created."
         end
-      else
-        render :new, status: :unprocessable_entity
       end
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 
